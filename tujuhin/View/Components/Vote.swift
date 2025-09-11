@@ -40,7 +40,7 @@ struct Vote: View {
                 .containerRelativeFrame(.horizontal) { width, _ in
                     width * 0.08
                 }
-                .foregroundStyle(.gray)
+                .foregroundStyle(currentVote == .up ? .crimsonRed : .gray)
             }
             
             Text(String(score))
@@ -70,7 +70,7 @@ struct Vote: View {
                     .containerRelativeFrame(.horizontal) { width, _ in
                         width * 0.08
                     }
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(currentVote == .down ? .crimsonRed : .gray)
             }
         }
     }

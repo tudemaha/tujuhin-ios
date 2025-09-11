@@ -36,7 +36,7 @@ struct TimelineCard: View {
                 Divider()
                 
                 HStack {
-                    Text("\(responseCount) response(s)")
+                    Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     
@@ -52,7 +52,7 @@ struct TimelineCard: View {
                                 .frame(height: 15)
                                 .bold()
                             
-                            Text("Response")
+                            Text("Answer")
                                 .font(.subheadline)
                                 .bold()
                         }
@@ -63,8 +63,8 @@ struct TimelineCard: View {
         }
         .padding()
         .background(.white)
-        .padding(.bottom, 5)
-        .background(.gray)
+        .padding(.bottom, 2)
+        .background(.secondary)
     }
 }
 

@@ -62,7 +62,9 @@ struct TimelineView: View {
                 )
             }
         }
-        .background(.gray)
+        .refreshable {
+            print("refreshed")
+        }
     }
 }
 

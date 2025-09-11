@@ -11,11 +11,55 @@ struct TimelineView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                TImelineCard()
-                TImelineCard()
-                TImelineCard()
-                TImelineCard()
-                TImelineCard()
+                TimelineCard(
+                    score: .constant(1),
+                    currentVote: .constant(.none),
+                    name: "Tude Maha",
+                    username: "@tudemaha",
+                    question: "Where i can buy kitchen utensils near park 23?",
+                    responseCount: 1
+                    
+                )
+                
+                TimelineCard(
+                    score: .constant(2),
+                    currentVote: .constant(.up),
+                    name: "Tude Maha",
+                    username: "@tudemaha",
+                    question: "plss i need pillow, where to get in denpasar?",
+                    responseCount: 3
+                    
+                )
+                
+                TimelineCard(
+                    score: .constant(0),
+                    currentVote: .constant(.none),
+                    name: "Tude Maha",
+                    username: "@tudemaha",
+                    question: "Where i can buy kitchen utensils near park 23?",
+                    responseCount: 1
+                    
+                )
+                
+                TimelineCard(
+                    score: .constant(1),
+                    currentVote: .constant(.none),
+                    name: "Tude Maha",
+                    username: "@tudemaha",
+                    question: "Where i can buy kitchen utensils near park 23?",
+                    responseCount: 1
+                    
+                )
+                
+                TimelineCard(
+                    score: .constant(1),
+                    currentVote: .constant(.none),
+                    name: "Tude Maha",
+                    username: "@tudemaha",
+                    question: "Where i can buy kitchen utensils near park 23?",
+                    responseCount: 1
+                    
+                )
             }
         }
         .background(.gray)

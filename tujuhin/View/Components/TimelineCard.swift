@@ -7,57 +7,36 @@
 
 import SwiftUI
 
-struct TImelineCard: View {
+struct TimelineCard: View {
+    @Binding var score: Int
+    @Binding var currentVote: VoteState?
+    var name: String
+    var username: String
+    var question: String
+    var responseCount: Int
+    
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .center, spacing: 8) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "arrowtriangle.up.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .containerRelativeFrame(.horizontal) { width, _ in
-                            width * 0.08
-                        }
-                        .foregroundStyle(.gray)
-                }
-                
-                Text("5")
-                    .font(.title2)
-                    .bold()
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "arrowtriangle.down.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .containerRelativeFrame(.horizontal) { width, _ in
-                            width * 0.08
-                        }
-                        .foregroundStyle(.gray)
-                }
-            }
+            Vote(score: $score, currentVote: $currentVote)
             
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Tude Maha")
-                        Text("@tudemaha")
+                        Text(name)
+                        Text(username)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
                 }
                 
-                Text("Where i can buy kitchen utensils near park 23?")
+                Text(question)
                     .font(.title3)
                 
                 Divider()
                 
                 HStack {
-                    Text("1 response(s)")
+                    Text("\(responseCount) response(s)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     
@@ -70,10 +49,12 @@ struct TImelineCard: View {
                             Image(systemName: "lightbulb.max")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 18)
+                                .frame(height: 15)
                                 .bold()
                             
                             Text("Response")
+                                .font(.subheadline)
+                                .bold()
                         }
                         .foregroundStyle(.gray)
                     }
@@ -82,12 +63,18 @@ struct TImelineCard: View {
         }
         .padding()
         .background(.white)
-        .clipShape(.rect(cornerRadius: 15))
-        .padding([.leading, .top, .trailing], 10)
+        .padding(.bottom, 5)
         .background(.gray)
     }
 }
 
 #Preview {
-    TImelineCard()
+    TimelineCard(
+        score: .constant(0),
+        currentVote: .constant(.none),
+        name: "Tude Maha",
+        username: "@tudemaha",
+        question: "Where i can buy kitchen utensils near park 23?",
+        responseCount: 0
+    )
 }

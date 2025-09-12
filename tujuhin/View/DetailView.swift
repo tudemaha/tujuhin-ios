@@ -60,17 +60,16 @@ struct DetailView: View {
                     }
                     .focused($isFocused)
                 
-                if comment != "" {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "paperplane.fill")
-                            .foregroundStyle(.white)
-                            .padding(5)
-                            .background(.crimsonRed)
-                            .clipShape(.circle)
-                    }
+                Button {
+                    
+                } label: {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundStyle(.white)
+                        .padding(5)
+                        .background(comment != "" ? .crimsonRed : .crimsonRed.opacity(0.6))
+                        .clipShape(.circle)
                 }
+                .disabled(comment == "")
             }
             .padding(.horizontal)
         }

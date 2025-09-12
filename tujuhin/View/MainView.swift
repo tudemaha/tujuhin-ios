@@ -23,8 +23,7 @@ struct MainView: View {
             
             Tab(value: 1) {
                 NavigationStack {
-                    TimelineView()
-                        .navigationTitle("Create Question")
+                    CreateQuestionView(selectedTab: $tabSelection)
                 }
             } label: {
                 TabLabel(tabSelection: tabSelection, currentTab: 1, name: "Create", icon: "plus.circle")

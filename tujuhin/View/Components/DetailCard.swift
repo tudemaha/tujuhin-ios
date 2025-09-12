@@ -36,7 +36,7 @@ struct DetailCard: View {
                 Divider()
                 
                 HStack {
-                    Text(answerCount == 1 ? "1 answer" : "\(answerCount) answers")
+                    Text(answerCount == 1 ? "1 reply" : "\(answerCount) replies")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     

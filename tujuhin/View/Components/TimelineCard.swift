@@ -37,15 +37,32 @@ struct TimelineCard: View {
                 Divider()
                 
                 HStack {
-                    Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    if showAnswerButton {
+                        NavigationLink {
+                            DetailView()
+                                .navigationTitle("Details")
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar(.hidden, for: .tabBar)
+                        } label: {
+                            Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        
+                    } else {
+                        Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
                     
                     Spacer()
                     
                     if showAnswerButton {
-                        Button {
-                            
+                        NavigationLink {
+                            DetailView()
+                                .navigationTitle("Details")
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar(.hidden, for: .tabBar)
                         } label: {
                             HStack(alignment: .center, spacing: 4) {
                                 Image(systemName: "lightbulb.max")

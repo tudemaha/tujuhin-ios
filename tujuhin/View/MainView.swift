@@ -31,7 +31,7 @@ struct MainView: View {
             
             Tab(value: 2) {
                 NavigationStack {
-                    TimelineView()
+                    ProfileView()
                         .navigationTitle("Profile")
                 }
             } label: {

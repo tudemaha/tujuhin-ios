@@ -17,8 +17,8 @@ struct TimelineView: View {
                     name: "Tude Maha",
                     username: "@tudemaha",
                     question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1
-                    
+                    responseCount: 1,
+                    showAnswerButton: true
                 )
                 
                 TimelineCard(
@@ -27,8 +27,8 @@ struct TimelineView: View {
                     name: "Tude Maha",
                     username: "@tudemaha",
                     question: "plss i need pillow, where to get in denpasar?",
-                    responseCount: 3
-                    
+                    responseCount: 3,
+                    showAnswerButton: true
                 )
                 
                 TimelineCard(
@@ -37,7 +37,8 @@ struct TimelineView: View {
                     name: "Tude Maha",
                     username: "@tudemaha",
                     question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1
+                    responseCount: 1,
+                    showAnswerButton: true
                     
                 )
                 
@@ -47,8 +48,9 @@ struct TimelineView: View {
                     name: "Tude Maha",
                     username: "@tudemaha",
                     question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1
-                    
+                    responseCount: 1,
+                    showAnswerButton: true
+
                 )
                 
                 TimelineCard(
@@ -57,8 +59,9 @@ struct TimelineView: View {
                     name: "Tude Maha",
                     username: "@tudemaha",
                     question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1
-                    
+                    responseCount: 1,
+                    showAnswerButton: true
+
                 )
             }
         }

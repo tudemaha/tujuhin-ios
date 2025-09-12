@@ -14,6 +14,7 @@ struct TimelineCard: View {
     var username: String
     var question: String
     var responseCount: Int
+    var showAnswerButton: Bool
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -23,6 +24,7 @@ struct TimelineCard: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(name)
+                            .fontWeight(.semibold)
                         Text(username)
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -31,7 +33,6 @@ struct TimelineCard: View {
                 }
                 
                 Text(question)
-                    .font(.title3)
                 
                 Divider()
                 
@@ -42,22 +43,25 @@ struct TimelineCard: View {
                     
                     Spacer()
                     
-                    Button {
-                        
-                    } label: {
-                        HStack(alignment: .center, spacing: 4) {
-                            Image(systemName: "lightbulb.max")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 15)
-                                .bold()
+                    if showAnswerButton {
+                        Button {
                             
-                            Text("Answer")
-                                .font(.subheadline)
-                                .bold()
+                        } label: {
+                            HStack(alignment: .center, spacing: 4) {
+                                Image(systemName: "lightbulb.max")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 15)
+                                    .bold()
+                                
+                                Text("Answer")
+                                    .font(.subheadline)
+                                    .bold()
+                            }
+                            .foregroundStyle(.gray)
                         }
-                        .foregroundStyle(.gray)
                     }
+                    
                 }
             }
         }
@@ -75,6 +79,7 @@ struct TimelineCard: View {
         name: "Tude Maha",
         username: "@tudemaha",
         question: "Where i can buy kitchen utensils near park 23?",
-        responseCount: 0
+        responseCount: 0,
+        showAnswerButton: true
     )
 }

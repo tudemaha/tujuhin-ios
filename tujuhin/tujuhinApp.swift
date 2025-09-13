@@ -11,7 +11,7 @@ import SwiftUI
 struct tujuhinApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            AuthView()
         }
     }
 }

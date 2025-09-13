@@ -13,11 +13,19 @@ struct ReplyCard: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Orang Asing")
-                            .font(.caption)
-                        Text("@orangasing")
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                        Text("Oranga Asing")
+                            .fontWeight(.semibold)
+                        HStack(spacing: 5) {
+                            Text("@orangasing")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                            Text("·")
+                            
+                            Text("1m")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     Spacer()
                 }

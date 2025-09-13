@@ -16,14 +16,22 @@ struct AnswerCard: View {
     @State private var isReplied: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading) {
                     Text(name)
                         .fontWeight(.semibold)
-                    Text(username)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 5) {
+                        Text(username)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        
+                        Text("·")
+                        
+                        Text("1m")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 Spacer()
             }

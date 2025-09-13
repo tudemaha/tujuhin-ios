@@ -25,9 +25,17 @@ struct TimelineCard: View {
                     VStack(alignment: .leading) {
                         Text(name)
                             .fontWeight(.semibold)
-                        Text(username)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                        HStack(spacing: 5) {
+                            Text(username)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                            Text("·")
+                            
+                            Text("1m")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     Spacer()
                 }

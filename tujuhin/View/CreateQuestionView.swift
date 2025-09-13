@@ -43,6 +43,9 @@ struct CreateQuestionView: View {
                 TextField("Write your question...", text: $question, axis: .vertical)
                     .multilineTextAlignment(.leading)
                     .focused($questionFocus)
+                    .onAppear {
+                        questionFocus = true
+                    }
             }
         }
         .padding(.horizontal)

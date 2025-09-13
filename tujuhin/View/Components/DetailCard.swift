@@ -20,45 +20,7 @@ struct DetailCard: View {
             Vote(score: $score, currentVote: $currentVote)
             
             VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(name)
-                            .fontWeight(.semibold)
-                        Text(username)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                }
-                
-                Text(answer)
-                
-                Divider()
-                
-                HStack {
-                    Text(answerCount == 1 ? "1 reply" : "\(answerCount) replies")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        HStack(alignment: .center, spacing: 4) {
-                            Image(systemName: "arrowshape.turn.up.left")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 15)
-                                .bold()
-                            
-                            Text("Reply")
-                                .font(.subheadline)
-                                .bold()
-                        }
-                        .foregroundStyle(.gray)
-                    }
-                }
+                AnswerCard(name: name, username: username, answer: answer, answerCount: answerCount)
                 
                 ReplyCard()
                 

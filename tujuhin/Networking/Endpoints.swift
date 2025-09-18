@@ -14,7 +14,7 @@ enum Endpoints {
     
     var urlRequest: URLRequest {
         var request: URLRequest
-        let baseURL = "https://tujuhin-be-318821994572.us-west1.run.app"
+        let baseURL = Environment.baseURL
         
         switch self {
         case .login(let username, let password):
@@ -27,7 +27,7 @@ enum Endpoints {
             let url = URL(string: "\(baseURL)/questions")!
             request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.addValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0N2RkYzYyLTUzYjAtNGMwNC05ODZlLTUzOTIyN2E4OGU2OCIsIm5hbWUiOiJCYWd1cyBEZXZhIiwidXNlcm5hbWUiOiJiYWd1c2RldmEiLCJleHAiOjE3NTgyMTU4MzR9.rtIBmIsjFVrF3BMQsSZ_v7EjDDeU0RGBL-orQ3kmAaw", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(String(describing: KeychainAccess.get("accessToken")))", forHTTPHeaderField: "Authorization")
         }
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -13,18 +13,14 @@ class QuestionViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let service: APIServiceProtocol
-    
-    init(service: APIServiceProtocol = APIService()) {
-        self.service = service
-    }
+    private let questionAPI = QuestionAPI()
     
     func getQuestions() async {
         isLoading = true
         errorMessage = nil
         
         do {
-            let fetchedQuestions = try await service.fetchQuestions()
+            let fetchedQuestions = try await questionAPI.fetchQuestions()
             self.questions = fetchedQuestions
         } catch {
             self.errorMessage = error.localizedDescription

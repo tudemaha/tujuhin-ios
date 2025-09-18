@@ -7,36 +7,27 @@
 
 import Foundation
 
-protocol APIServiceProtocol {
-    func fetchQuestions() async throws -> [Question]
-}
-
-class APIService: APIServiceProtocol {
-    func fetchQuestions() async throws -> [Question] {
-        guard let url = URL(string: "https://tujuhin-be-318821994572.us-west1.run.app/questions") else {
-            throw URLError(.badURL)
-        }
-        
-        let token = ""
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        let (data, _) = try await URLSession.shared.data(for: request)
-                
-        let decoder = JSONDecoder()
+class APIService {
+    static let shared = APIService()
+    private let decoder: JSONDecoder
+    
+    init() {
+        decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .iso8601
+    }
+    
+    func request<T: Codable>(_ endpoint: Endpoints, responseType: T.Type) async throws -> T {
+        let (data, _) = try await URLSession.shared.data(for: endpoint.urlRequest)
+        print(data)
         
-        let response = try decoder.decode(APIResponse<QuestionData>.self, from: data)
-        print(response)
+        let response = try decoder.decode(APIResponse<T>.self, from: data)
         
         if let errorMessage = response.errors, !errorMessage.isEmpty {
             let combined = errorMessage.map { "\($0.key): \($0.value)" }.joined(separator: "\n")
             throw NSError(domain: "", code: response.code, userInfo: [NSLocalizedDescriptionKey: combined])
         }
-                
-        return response.data?.questions ?? []
+        
+        return response.data!
     }
 }

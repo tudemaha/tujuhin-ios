@@ -7,13 +7,9 @@
 
 import SwiftUI
 
-enum VoteState {
-    case up, down
-}
-
 struct Vote: View {
     @Binding var score: Int
-    @Binding var currentVote: VoteState?
+    @Binding var currentVote: VoteState
     
     var body: some View {
         VStack(alignment: .center, spacing: 8) {

@@ -8,31 +8,27 @@
 import SwiftUI
 
 struct TimelineCard: View {
-    @Binding var score: Int
-    @Binding var currentVote: VoteState?
-    var name: String
-    var username: String
-    var question: String
-    var responseCount: Int
+    @Binding var question: Question
+    var answerCount: Int
     var showAnswerButton: Bool
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            Vote(score: $score, currentVote: $currentVote)
+            Vote(score: $question.totalVote, currentVote: $question.voteState)
             
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(name)
+                        Text(question.owner.name)
                             .fontWeight(.semibold)
                         HStack(spacing: 5) {
-                            Text(username)
+                            Text("@\(question.owner.username)")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                             
                             Text("·")
-                            
-                            Text("1m")
+
+                            Text(DateCalculation.getDuration(from: question.createdAt, to: Date()))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -40,7 +36,7 @@ struct TimelineCard: View {
                     Spacer()
                 }
                 
-                Text(question)
+                Text(question.question)
                 
                 Divider()
                 
@@ -52,13 +48,13 @@ struct TimelineCard: View {
                                 .navigationBarTitleDisplayMode(.inline)
                                 .toolbar(.hidden, for: .tabBar)
                         } label: {
-                            Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
+                            Text(answerCount == 1 ? "1 answer" : "\(answerCount) answers")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
                         
                     } else {
-                        Text(responseCount == 1 ? "1 answer" : "\(responseCount) answers")
+                        Text(answerCount == 1 ? "1 answer" : "\(answerCount) answers")
                             .font(.caption)
                             .foregroundStyle(.gray)
                     }
@@ -99,12 +95,21 @@ struct TimelineCard: View {
 
 #Preview {
     TimelineCard(
-        score: .constant(0),
-        currentVote: .constant(.none),
-        name: "Tude Maha",
-        username: "@tudemaha",
-        question: "Where i can buy kitchen utensils near park 23?",
-        responseCount: 0,
+        question: .constant(
+            Question(
+                id: UUID(),
+                question: "where to buy kitchen utensils in jimbaran?",
+                totalVote: 1,
+                voteState: .up,
+                owner: User(
+                    id: UUID(),
+                    name: "Tude Maha",
+                    username: "@tudemaha"
+                ),
+                createdAt: Date()
+            )
+        ),
+        answerCount: 0,
         showAnswerButton: true
     )
 }

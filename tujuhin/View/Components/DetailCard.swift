@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailCard: View {
     @Binding var score: Int
-    @Binding var currentVote: VoteState?
+    @Binding var currentVote: VoteState
     var name: String
     var username: String
     var answer: String

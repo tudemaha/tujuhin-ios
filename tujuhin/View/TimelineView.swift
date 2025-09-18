@@ -8,65 +8,31 @@
 import SwiftUI
 
 struct TimelineView: View {
+    @StateObject private var questionViewModel = QuestionViewModel()
+    
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
-                TimelineCard(
-                    score: .constant(1),
-                    currentVote: .constant(.none),
-                    name: "Tude Maha",
-                    username: "@tudemaha",
-                    question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1,
-                    showAnswerButton: true
-                )
-                
-                TimelineCard(
-                    score: .constant(2),
-                    currentVote: .constant(.up),
-                    name: "Tude Maha",
-                    username: "@tudemaha",
-                    question: "plss i need pillow, where to get in denpasar?",
-                    responseCount: 3,
-                    showAnswerButton: true
-                )
-                
-                TimelineCard(
-                    score: .constant(0),
-                    currentVote: .constant(.none),
-                    name: "Tude Maha",
-                    username: "@tudemaha",
-                    question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1,
-                    showAnswerButton: true
-                    
-                )
-                
-                TimelineCard(
-                    score: .constant(1),
-                    currentVote: .constant(.none),
-                    name: "Tude Maha",
-                    username: "@tudemaha",
-                    question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1,
-                    showAnswerButton: true
-
-                )
-                
-                TimelineCard(
-                    score: .constant(1),
-                    currentVote: .constant(.none),
-                    name: "Tude Maha",
-                    username: "@tudemaha",
-                    question: "Where i can buy kitchen utensils near park 23?",
-                    responseCount: 1,
-                    showAnswerButton: true
-
-                )
+            if questionViewModel.isLoading {
+                ProgressView("Loading data...")
+            } else {
+                VStack(spacing: 0) {
+                    ForEach($questionViewModel.questions) { $question in
+                        TimelineCard(
+                            question: $question,
+                            answerCount: 0,
+                            showAnswerButton: false
+                        )
+                    }
+                }
             }
         }
         .refreshable {
-            print("refreshed")
+            Task {
+                await questionViewModel.getQuestions()
+            }
+        }
+        .task {
+            await questionViewModel.getQuestions()
         }
     }
 }

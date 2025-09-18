@@ -13,15 +13,15 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
-            TimelineCard(
-                score: .constant(1),
-                currentVote: .constant(.none),
-                name: "Tude Maha",
-                username: "@tudemaha",
-                question: "Where i can buy kitchen utensils near park 23?",
-                responseCount: 1,
-                showAnswerButton: false
-            )
+//            TimelineCard(
+//                score: .constant(1),
+//                currentVote: .constant(.none),
+//                name: "Tude Maha",
+//                username: "@tudemaha",
+//                question: "Where i can buy kitchen utensils near park 23?",
+//                responseCount: 1,
+//                showAnswerButton: false
+//            )
             
             ScrollView {
                 VStack {

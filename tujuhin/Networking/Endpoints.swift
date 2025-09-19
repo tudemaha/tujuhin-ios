@@ -21,13 +21,15 @@ enum Endpoints {
             let url = URL(string: "\(baseURL)/auth/login")!
             request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.httpBody = try? JSONEncoder().encode(["email": username, "password": password])
+            request.httpBody = try? JSONEncoder().encode(["username": username, "password": password])
             
         case .fetchQuestions:
             let url = URL(string: "\(baseURL)/questions")!
+            let bearer = KeychainAccess.readString("accessToken") ?? ""
+            
             request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.addValue("Bearer \(String(describing: KeychainAccess.get("accessToken")))", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(bearer)", forHTTPHeaderField: "Authorization")
         }
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

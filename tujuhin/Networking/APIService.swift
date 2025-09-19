@@ -19,7 +19,10 @@ class APIService {
     
     func request<T: Codable>(_ endpoint: Endpoints, responseType: T.Type) async throws -> T {
         let (data, _) = try await URLSession.shared.data(for: endpoint.urlRequest)
-        print(data)
+        
+        if let raw = String(data: data, encoding: .utf8) {
+            print(raw)
+        }
         
         let response = try decoder.decode(APIResponse<T>.self, from: data)
         

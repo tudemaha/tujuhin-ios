@@ -19,6 +19,3 @@ struct APIError: Codable {
     let value: String
 }
 
-struct QuestionData: Codable {
-    let questions: [Question]
-}

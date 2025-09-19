@@ -9,7 +9,7 @@ import Foundation
 
 class QuestionAPI {
     func fetchQuestions() async throws -> [Question] {
-        let questioinsRes = try await APIService.shared.request(.fetchQuestions, responseType: QuestionData.self)
-        return questioinsRes.questions
+        let questionsRes = try await APIService.shared.request(.fetchQuestions, responseType: QuestionData.self)
+        return questionsRes.questions
     }
 }

@@ -12,8 +12,9 @@ enum AuthInput {
 }
 
 struct AuthView: View {
-    @State private var loginState: Bool = true
+    @EnvironmentObject var authViewModel: AuthViewModel
     
+    @State private var loginState: Bool = true
     @State private var name: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
@@ -70,17 +71,26 @@ struct AuthView: View {
                     }
                 }
                 
-                Button {
-                    
-                } label: {
-                    Text(loginState ? "Login" : "Register")
-                        .bold()
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .background(.crimsonRed)
-                        .clipShape(.capsule)
+                if authViewModel.isLoading {
+                    ProgressView()
+                } else {
+                    Button {
+                        if loginState {
+                            Task {
+                                await authViewModel.login(username: username, password: password)
+                            }
+                        }
+                    } label: {
+                        Text(loginState ? "Login" : "Register")
+                            .bold()
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(.crimsonRed)
+                            .clipShape(.capsule)
+                    }
                 }
+                
                 
                 HStack(spacing: 5) {
                     Text(loginState ? "Don't have an account?" : "Already have account?")

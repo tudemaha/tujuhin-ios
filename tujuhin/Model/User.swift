@@ -8,7 +8,7 @@
 import Foundation
 
 struct User: Codable, Identifiable, Hashable {
-    let id: UUID
-    let name: String
-    let username: String
+    var id: UUID
+    var name: String
+    var username: String
 }

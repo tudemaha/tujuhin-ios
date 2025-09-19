@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showLogoutAlert: Bool = false
     
     var body: some View {
         VStack(spacing: 30) {
             VStack {
-                Text("Tude Maha")
+                Text(authViewModel.user?.name ?? "")
                     .font(.title2)
                     .bold()
                 
-                Text("@tudemaha")
+                Text("@\(authViewModel.user?.username ?? "")")
                     .font(.title3)
                     .foregroundStyle(.secondary)
             }
@@ -35,7 +36,10 @@ struct ProfileView: View {
             }
         }
         .alert("Are you sure to log out?", isPresented: $showLogoutAlert) {
-            Button("Logout", role: .destructive) { }
+            Button("Logout", role: .destructive) {
+                authViewModel.logout()
+                authViewModel.isLoggedIn = false
+            }
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("You will need to relog in to use the app")

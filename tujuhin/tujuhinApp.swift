@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct tujuhinApp: App {
+    @StateObject var authViewModel = AuthViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            RootView()
+                .environmentObject(authViewModel)
         }
     }
 }

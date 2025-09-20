@@ -11,10 +11,16 @@ enum AuthInput {
     case name, username, password, passwordRepeat
 }
 
+enum ActiveAlert: Identifiable {
+    var id: Int { hashValue }
+    case loginFailed, registerFailed, registerSuccess
+}
+
 struct AuthView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     
     @State private var loginState: Bool = true
+    @State private var activeAlert: ActiveAlert?
     @State private var name: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
@@ -102,6 +108,10 @@ struct AuthView: View {
                             if loginState {
                                 let loginData = LoginData(username: username, password: password)
                                 await authViewModel.login(loginData)
+                                
+                                if authViewModel.errorMessage != nil {
+                                    activeAlert = .loginFailed
+                                }
                             } else {
                                 let registerData = RegisterData(
                                     name: name,
@@ -110,6 +120,11 @@ struct AuthView: View {
                                     passwordRepeat: passwordRepeat
                                 )
                                 await authViewModel.register(registerData)
+                                if authViewModel.errorMessage != nil {
+                                    activeAlert = .registerFailed
+                                } else {
+                                    activeAlert = .registerSuccess
+                                }
                             }
                         }
                     } label: {
@@ -156,6 +171,38 @@ struct AuthView: View {
                 currentFocus = .username
             } else {
                 currentFocus = .name
+            }
+        }
+        .alert(item: $activeAlert) { active in
+            switch active {
+            case .loginFailed:
+                return Alert(
+                    title: Text("Login Failed"),
+                    message: Text("You have entered an invalid username or password"),
+                    dismissButton: .default(Text("OK")) {
+                        password = ""
+                    }
+                )
+            case .registerFailed:
+                return Alert(
+                    title: Text("Register Failed"),
+                    message: Text("Username already taken"),
+                    dismissButton: .default(Text("OK")) {
+                        password = ""
+                        passwordRepeat = ""
+                    }
+                )
+            case .registerSuccess:
+                return Alert(
+                    title: Text("Register Success"),
+                    dismissButton: .default(Text("OK")) {
+                        name = ""
+                        username = ""
+                        password = ""
+                        passwordRepeat = ""
+                        loginState = true
+                    }
+                )
             }
         }
     }

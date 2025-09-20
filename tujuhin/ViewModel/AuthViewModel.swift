@@ -87,7 +87,7 @@ class AuthViewModel: ObservableObject {
             )
             self.user = newUser
         } catch {
-            self.errorMessage = error.localizedDescription
+            self.errorMessage = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "jwt decode error"])
 
         }
     }

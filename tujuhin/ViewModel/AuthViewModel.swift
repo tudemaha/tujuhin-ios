@@ -34,12 +34,12 @@ class AuthViewModel: ObservableObject {
         
     }
     
-    func login(username: String, password: String) async {
+    func login(_ loginData: LoginData) async {
         isLoading = true
         errorMessage = nil
         
         do {
-            let tokens = try await authAPI.login(username: username, password: password)
+            let tokens = try await authAPI.login(loginData)
             self.tokens = tokens
             
             isLoggedIn = true

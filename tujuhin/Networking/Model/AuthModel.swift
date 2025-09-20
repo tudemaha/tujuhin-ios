@@ -11,3 +11,15 @@ struct Tokens: Codable, Hashable {
     var accessToken: String
     var refreshToken: String
 }
+
+struct LoginData: Codable {
+    var username: String
+    var password: String
+}
+
+struct RegisterData: Codable {
+    var name: String
+    var username: String
+    var password: String
+    var passwordRepeat: String
+}

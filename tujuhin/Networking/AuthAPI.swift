@@ -8,9 +8,9 @@
 import Foundation
 
 class AuthAPI {
-    func login(username: String, password: String) async throws -> Tokens {
+    func login(_ loginData: LoginData) async throws -> Tokens {
         try await APIService.shared.request(
-            .login(username: username, password: password),
+            .login(loginData),
             responseType: Tokens.self
         )
     }

@@ -77,7 +77,8 @@ struct AuthView: View {
                     Button {
                         if loginState {
                             Task {
-                                await authViewModel.login(username: username, password: password)
+                                let loginData = LoginData(username: username, password: password)
+                                await authViewModel.login(loginData)
                             }
                         }
                     } label: {

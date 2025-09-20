@@ -8,7 +8,7 @@
 import Foundation
 
 enum Endpoints {
-    case login(username: String, password: String)
+    case login(_ loginData: LoginData)
     
     case fetchQuestions
     
@@ -17,11 +17,11 @@ enum Endpoints {
         let baseURL = Environment.baseURL
         
         switch self {
-        case .login(let username, let password):
+        case .login(let loginData):
             let url = URL(string: "\(baseURL)/auth/login")!
             request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.httpBody = try? JSONEncoder().encode(["username": username, "password": password])
+            request.httpBody = try? JSONEncoder().encode(loginData)
             
         case .fetchQuestions:
             let url = URL(string: "\(baseURL)/questions")!

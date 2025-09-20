@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum AuthInput {
-    case name, username, password
+    case name, username, password, passwordRepeat
 }
 
 struct AuthView: View {
@@ -18,6 +18,7 @@ struct AuthView: View {
     @State private var name: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var passwordRepeat: String = ""
     @FocusState private var currentFocus: AuthInput?
     
     var body: some View {
@@ -68,6 +69,28 @@ struct AuthView: View {
                                     .stroke(currentFocus == .password ? Color.crimsonRed.opacity(0.5) : Color.gray.opacity(0.5))
                             }
                             .focused($currentFocus, equals: .password)
+                        if password.count < 8 {
+                            Text("Password must has minimal 8 characters long")
+                                .font(.caption)
+                        }
+                    }
+                    
+                    if !loginState {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Password Confirmation")
+                            SecureField("Password Confirmation", text: $passwordRepeat)
+                                .frame(height: 40)
+                                .padding(.horizontal, 15)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(currentFocus == .passwordRepeat ? Color.crimsonRed.opacity(0.5) : Color.gray.opacity(0.5))
+                                }
+                                .focused($currentFocus, equals: .passwordRepeat)
+                            if password != passwordRepeat {
+                                Text("Password confirmation must the same with password")
+                                    .font(.caption)
+                            }
+                        }
                     }
                 }
                 
@@ -75,10 +98,18 @@ struct AuthView: View {
                     ProgressView()
                 } else {
                     Button {
-                        if loginState {
-                            Task {
+                        Task {
+                            if loginState {
                                 let loginData = LoginData(username: username, password: password)
                                 await authViewModel.login(loginData)
+                            } else {
+                                let registerData = RegisterData(
+                                    name: name,
+                                    username: username,
+                                    password: password,
+                                    passwordRepeat: passwordRepeat
+                                )
+                                await authViewModel.register(registerData)
                             }
                         }
                     } label: {
@@ -87,9 +118,10 @@ struct AuthView: View {
                             .foregroundStyle(.white)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
-                            .background(.crimsonRed)
+                            .background(disabledButtonRules() ? .crimsonRed.opacity(0.6) : .crimsonRed)
                             .clipShape(.capsule)
                     }
+                    .disabled(disabledButtonRules())
                 }
                 
                 
@@ -108,11 +140,31 @@ struct AuthView: View {
         }
         .padding(.horizontal, 40)
         .onChange(of: loginState) {
+            name = ""
+            username = ""
+            password = ""
+            passwordRepeat = ""
+            
             if loginState {
                 currentFocus = .username
             } else {
                 currentFocus = .name
             }
+        }
+        .onAppear {
+            if loginState {
+                currentFocus = .username
+            } else {
+                currentFocus = .name
+            }
+        }
+    }
+    
+    func disabledButtonRules() -> Bool {
+        if loginState {
+            return username.isEmpty || password.count < 8
+        } else {
+            return username.isEmpty || name.isEmpty || password.count < 8 || password != passwordRepeat
         }
     }
 }

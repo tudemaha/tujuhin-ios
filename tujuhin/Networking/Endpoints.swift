@@ -9,6 +9,7 @@ import Foundation
 
 enum Endpoints {
     case login(_ loginData: LoginData)
+    case register(_ registerData: RegisterData)
     
     case fetchQuestions
     
@@ -21,7 +22,13 @@ enum Endpoints {
             let url = URL(string: "\(baseURL)/auth/login")!
             request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.httpBody = try? JSONEncoder().encode(loginData)
+            request.httpBody = try? JSONEncoder.commonnEncoder.encode(loginData)
+            
+        case .register(let registerData):
+            let url = URL(string: "\(baseURL)/auth/register")!
+            request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = try? JSONEncoder.commonnEncoder.encode(registerData)
             
         case .fetchQuestions:
             let url = URL(string: "\(baseURL)/questions")!

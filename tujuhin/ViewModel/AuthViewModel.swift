@@ -11,7 +11,8 @@ import JWTDecode
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var isLoggedIn = false
-    @Published var errorMessage: String?
+    @Published var isRegistered = false
+    @Published var errorMessage: NSError?
     @Published var isLoading = false
     @Published var user: User?
     
@@ -30,8 +31,18 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func register() {
+    func register(_ registerData: RegisterData) async {
+        isLoading = true
+        errorMessage = nil
         
+        do {
+            try await authAPI.register(registerData)
+            isRegistered = true
+        } catch let error as NSError {
+            self.errorMessage = error
+        }
+        
+        isLoading = false
     }
     
     func login(_ loginData: LoginData) async {
@@ -47,8 +58,8 @@ class AuthViewModel: ObservableObject {
             KeychainAccess.save(self.tokens?.refreshToken ?? "", account: "refreshToken")
             
             jwtDecode(tokens: tokens)
-        } catch {
-            self.errorMessage = error.localizedDescription
+        } catch let error as NSError {
+            self.errorMessage = error
         }
         
         isLoading = false

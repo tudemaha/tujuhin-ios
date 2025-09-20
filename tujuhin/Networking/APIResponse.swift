@@ -19,3 +19,4 @@ struct APIError: Codable {
     let value: String
 }
 
+struct EmptyResponse: Codable {}

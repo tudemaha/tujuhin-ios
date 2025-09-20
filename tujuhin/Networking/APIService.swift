@@ -20,9 +20,9 @@ class APIService {
     func request<T: Codable>(_ endpoint: Endpoints, responseType: T.Type) async throws -> T {
         let (data, _) = try await URLSession.shared.data(for: endpoint.urlRequest)
         
-        if let raw = String(data: data, encoding: .utf8) {
-            print(raw)
-        }
+//        if let raw = String(data: data, encoding: .utf8) {
+//            print(raw)
+//        }
         
         let response = try decoder.decode(APIResponse<T>.self, from: data)
         
@@ -31,6 +31,10 @@ class APIService {
             throw NSError(domain: "", code: response.code, userInfo: [NSLocalizedDescriptionKey: combined])
         }
         
-        return response.data!
+        if let dataObj = response.data {
+            return dataObj
+        } else {
+            return EmptyResponse() as! T
+        }
     }
 }

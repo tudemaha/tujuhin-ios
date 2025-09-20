@@ -14,4 +14,11 @@ class AuthAPI {
             responseType: Tokens.self
         )
     }
+    
+    func register(_ registerData: RegisterData) async throws {
+        _ = try await APIService.shared.request(
+            .register(registerData),
+            responseType: EmptyResponse.self
+        )
+    }
 }

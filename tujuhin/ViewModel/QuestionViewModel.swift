@@ -11,7 +11,7 @@ import Foundation
 class QuestionViewModel: ObservableObject {
     @Published var questions: [Question] = []
     @Published var isLoading = false
-    @Published var errorMessage: String?
+    @Published var errorMessage: NSError?
     
     private let questionAPI = QuestionAPI()
     
@@ -22,8 +22,8 @@ class QuestionViewModel: ObservableObject {
         do {
             let fetchedQuestions = try await questionAPI.fetchQuestions()
             self.questions = fetchedQuestions
-        } catch {
-            self.errorMessage = error.localizedDescription
+        } catch let error as NSError {
+            self.errorMessage = error
         }
         
         print(questions)

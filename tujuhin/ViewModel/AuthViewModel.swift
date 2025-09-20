@@ -53,11 +53,11 @@ class AuthViewModel: ObservableObject {
             let tokens = try await authAPI.login(loginData)
             self.tokens = tokens
             
-            isLoggedIn = true
             KeychainAccess.save(self.tokens?.accessToken ?? "", account: "accessToken")
             KeychainAccess.save(self.tokens?.refreshToken ?? "", account: "refreshToken")
             
             jwtDecode(tokens: tokens)
+            isLoggedIn = true
         } catch let error as NSError {
             self.errorMessage = error
         }
